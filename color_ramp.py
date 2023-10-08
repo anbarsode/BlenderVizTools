@@ -1,9 +1,9 @@
 import numpy as np
-# import matplotlib.pyplot as plt
 from user_defined_color_maps import USER_DEFINED_COLOR_MAPS
 from matplotlib_color_maps import MATPLOTLIB_COLOR_MAPS
 
 '''
+import matplotlib.pyplot as plt
 def matplotlib_cmap_to_colorramp(cmap_name = 'my_cold', npts = 10):
     try:
         cmap = plt.get_cmap(cmap_name)
