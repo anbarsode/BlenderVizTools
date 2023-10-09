@@ -1,6 +1,7 @@
 import bpy
 from appearance import *
 from rendering import *
+from background import *
 
 ##### Viewing
 # set

@@ -36,7 +36,8 @@ main_space.show_region_ui = True
 main_space.lock_camera = True
 
 # Default camera location and rotation upon launch
-CAMERA_HOME_LOCATION = [7, -2.5, 4]
+#CAMERA_HOME_LOCATION = [7, -2.5, 4] # for cube
+CAMERA_HOME_LOCATION = [7, -3, 4] # for sphere
 CAMERA_HOME_ROTATION = [1.1, 0, 1.15]
 bpy.data.objects['Camera'].location = CAMERA_HOME_LOCATION.copy()
 bpy.data.objects['Camera'].rotation_euler = CAMERA_HOME_ROTATION.copy()

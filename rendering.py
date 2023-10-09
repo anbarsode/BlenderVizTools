@@ -1,6 +1,7 @@
 import bpy
 
 bpy.data.scenes['Scene'].render.use_border = True
+bpy.data.scenes['Scene'].cycles.device = 'GPU'
 
 VIEW_SETTINGS = {'engine':'fast', 'quality':'medium', 'denoise':False}
 RENDER_SETTINGS = {'engine':'fast', 'quality':'good', 'denoise':False, 'resolution':[960,540]}
@@ -24,7 +25,7 @@ def reset_viewport_settings(engine='fast', quality='medium', denoise=False):
     if engine == 'accurate':
         bpy.data.scenes['Scene'].render.engine = 'CYCLES'
         bpy.data.scenes['Scene'].cycles.preview_adaptive_threshold = 1.0
-        bpy.data.scenes['Scene'].cycles.use_denoising = denoise
+        bpy.data.scenes['Scene'].cycles.use_preview_denoising = denoise
         if quality == 'low':
             bpy.data.scenes['Scene'].cycles.preview_samples = 4
             bpy.data.scenes['Scene'].cycles.volume_max_steps = 2
