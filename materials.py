@@ -100,6 +100,7 @@ def create_scalar_Cuboid_layer(ID, z0, z1, image0, image1, cmap_name = 'my_cold'
     node_emit = mat.node_tree.nodes.new('ShaderNodeEmission')
     node_emit.name = 'Final Emission'
     node_emit.location = [-200, 300]
+    node_emit.inputs[1].default_value = 1
     mat.node_tree.links.new(node_emit.inputs[0], node_volume_color.outputs[2])
     
     node_out = mat.node_tree.nodes.new('ShaderNodeOutputMaterial')
@@ -223,6 +224,7 @@ def create_scalar_Ellipsoid_layer(ID, r0, r1, image0, image1, cmap_name = 'my_co
     node_emit = mat.node_tree.nodes.new('ShaderNodeEmission')
     node_emit.name = 'Final Emission'
     node_emit.location = [-200, 300]
+    node_emit.inputs[1].default_value = 1
     mat.node_tree.links.new(node_emit.inputs[0], node_volume_color.outputs[2])
     
     node_out = mat.node_tree.nodes.new('ShaderNodeOutputMaterial')
@@ -358,6 +360,7 @@ def create_scalar_Cylinder_layer(ID, R0, R1, image0, image1, cmap_name = 'my_col
     node_emit = mat.node_tree.nodes.new('ShaderNodeEmission')
     node_emit.name = 'Final Emission'
     node_emit.location = [-200, 300]
+    node_emit.inputs[1].default_value = 1
     mat.node_tree.links.new(node_emit.inputs[0], node_volume_color.outputs[2])
     
     node_out = mat.node_tree.nodes.new('ShaderNodeOutputMaterial')
