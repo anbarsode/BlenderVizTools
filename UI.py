@@ -52,7 +52,7 @@ class BVT_OT_refresh_view(bpy.types.Operator):
     bl_label = 'Refresh'
 
     def execute(self, context):
-        global VIEW_SETTINGS
+        global VIEW_SETTINGS, EMISSION_STRENGTH
         if bpy.context.scene.user_inputs.viewport_raytracing: VIEW_SETTINGS['engine'] = 'accurate'
         else: VIEW_SETTINGS['engine'] = 'fast'
         VIEW_SETTINGS['denoise'] = bpy.context.scene.user_inputs.viewport_denoise
@@ -72,8 +72,9 @@ class BVT_OT_refresh_view(bpy.types.Operator):
                      bpy.context.scene.user_inputs.view_layers_0
         
         # Refresh colormap
+        EMISSION_STRENGTH = bpy.context.scene.user_inputs.emission_strength
         refresh_colormaps(bpy.context.scene.user_inputs.view_layers_0, \
-                          bpy.context.scene.user_inputs.view_layers_N)
+                          bpy.context.scene.user_inputs.view_layers_N, EMISSION_STRENGTH)
         
         return {'FINISHED'}
 
@@ -238,6 +239,14 @@ class MyProperties(bpy.types.PropertyGroup):
                           min = 0, \
                           max = 2048, \
                           update = show_hide_layers)
+    
+    emission_strength : \
+    bpy.props.FloatProperty(name = 'Intensity', \
+                            description = 'Controls the amount of light emitted', \
+                            default = 1, \
+                            min = 0, \
+                            max = 1e6, \
+                            update = auto_refresh)
 
 ##### UI Panel in the sidebar (The "N" panel.)
 # Main panel
@@ -286,7 +295,8 @@ class VIEW3D_PT_BVTFloatingPanel_ColorMap(bpy.types.Panel):
             node.draw_buttons_ext(context, layout)
         elif hasattr(node, "draw_buttons"):
             node.draw_buttons(context, layout)
-        
+
+        layout.prop(bpy.context.scene.user_inputs, 'emission_strength')
         layout.operator(BVT_OT_refresh_view.bl_idname, icon='FILE_REFRESH')
 
 # View
