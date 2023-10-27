@@ -106,7 +106,7 @@ def refresh_colormaps(layer_id0, N_layers):
                     node.color_ramp.elements[i].color = cmap[i][1:]
                 for i in range(len(node.color_ramp.elements), len(cmap)):
                     node.color_ramp.elements.new(cmap[i][0])
-                    node.color_ramp.elements[i+2].color = cmap[i][1:]
+                    node.color_ramp.elements[i].color = cmap[i][1:]
             else:
                 for i in range(len(node.color_ramp.elements)):
                     node.color_ramp.elements[i].position = cmap[i][0]
