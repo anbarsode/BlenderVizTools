@@ -70,6 +70,7 @@ def create_color_ramp(mat, name, loc, cmap_name = 'my_cold', cmap_data = None):
 
 TEMPLATE_CMAP_MAT_NAME = 'Template Color Map'
 TEMPLATE_CMAP_NODE_NAME = 'Template Color Map'
+EMISSION_STRENGTH = 1
 
 def create_template_colormap(cmap_name, cmap_data=None):
     bpy.data.materials.new(name = TEMPLATE_CMAP_MAT_NAME)
@@ -78,7 +79,7 @@ def create_template_colormap(cmap_name, cmap_data=None):
     mat.node_tree.nodes.clear()
     create_color_ramp(mat, TEMPLATE_CMAP_NODE_NAME, [0,0], cmap_name, cmap_data)
 
-def refresh_colormaps(layer_id0, N_layers):
+def refresh_colormaps(layer_id0, N_layers, EMISSION_STRENGTH=1):
     mat = bpy.data.materials.get(TEMPLATE_CMAP_MAT_NAME)
     node = mat.node_tree.nodes.get(TEMPLATE_CMAP_NODE_NAME)
     interp = node.color_ramp.interpolation
@@ -90,6 +91,8 @@ def refresh_colormaps(layer_id0, N_layers):
     for ID in range(layer_id0, layer_id0 + N_layers):
         mat = bpy.data.materials.get('Material Layer %d' % ID)
         if mat is None: continue
+        node = mat.node_tree.nodes.get("Final Emission")
+        node.inputs[1].default_value = EMISSION_STRENGTH
         for nodename in ['Color Ramp 0', 'Color Ramp 1']:
             node = mat.node_tree.nodes.get(nodename)
             node.color_ramp.interpolation = interp
