@@ -8,7 +8,7 @@ RENDER_SETTINGS = {'engine':'fast', 'quality':'good', 'denoise':False, 'resoluti
 
 def reset_viewport_settings(engine='fast', quality='medium', denoise=False):
     if engine == 'fast':
-        bpy.data.scenes['Scene'].render.engine = 'BLENDER_EEVEE'
+        bpy.data.scenes['Scene'].render.engine = 'BLENDER_EEVEE_NEXT'
         if quality == 'low':
             bpy.data.scenes['Scene'].eevee.taa_samples = 16
             bpy.data.scenes['Scene'].eevee.volumetric_tile_size = '8'
@@ -43,7 +43,7 @@ def reset_render_settings(engine='fast', quality='good', denoise=False, resoluti
     bpy.data.scenes['Scene'].render.resolution_x = resolution[0]
     bpy.data.scenes['Scene'].render.resolution_y = resolution[1]
     if engine == 'fast':
-        bpy.data.scenes['Scene'].render.engine = 'BLENDER_EEVEE'
+        bpy.data.scenes['Scene'].render.engine = 'BLENDER_EEVEE_NEXT'
         if quality == 'low':
             bpy.data.scenes['Scene'].eevee.taa_render_samples = 16
             bpy.data.scenes['Scene'].eevee.volumetric_tile_size = '8'
