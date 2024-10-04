@@ -16,3 +16,5 @@ for area in to_close:
 main_area = [a for a in bpy.context.window.screen.areas if a.type == 'VIEW_3D'][0]
 main_space = [s for s in main_area.spaces if s.type == 'VIEW_3D'][0]
 main_space.shading.type = 'RENDERED'
+
+# more code which uses main_area

@@ -90,7 +90,8 @@ class BVT_OT_print_camera_coords(bpy.types.Operator):
     bl_label = ''
 
     def execute(self, context):
-        loc = [x for x in bpy.data.objects['Camera'].location]
+        LENGTH_SCALE = bpy.context.scene.user_inputs.length_scale
+        loc = [x * LENGTH_SCALE for x in bpy.data.objects['Camera'].location]
         rot = [x for x in bpy.data.objects['Camera'].rotation_euler]
         print('\nCurrent location (Meters):\n\t', repr(loc))
         print('Current orientation (Euler XYZ, radians):\n\t', repr(rot), '\n')
@@ -247,6 +248,13 @@ class MyProperties(bpy.types.PropertyGroup):
                             min = 0, \
                             max = 1e6, \
                             update = auto_refresh)
+    
+    length_scale : \
+    bpy.props.FloatProperty(name = 'Length Scale', \
+                            description = 'Not meant to be exposed', \
+                            default = 1, \
+                            min = 0, \
+                            max = 1e6)
 
 ##### UI Panel in the sidebar (The "N" panel.)
 # Main panel

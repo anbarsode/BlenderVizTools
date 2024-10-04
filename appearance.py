@@ -15,16 +15,16 @@ for ws in bpy.data.workspaces:
 bpy.data.workspaces['Layout'].name = 'Rendered'
 bpy.context.window.workspace = bpy.data.workspaces['Rendered']
 
-# NOT WORKING in blender 4.2.2 LTS! Fix this
-# Close properties, dopesheet and outliner
-# Default open areas: ['PROPERTIES', 'OUTLINER', 'DOPESHEET_EDITOR', 'VIEW_3D']
-to_close = []
-for area_type in ['PROPERTIES', 'OUTLINER', 'DOPESHEET_EDITOR']:
-    to_close.append([area for area in bpy.context.screen.areas if area.type == area_type][-1])
-override = bpy.context.copy()
-for area in to_close:
-    override['area'] = area
-    with bpy.context.temp_override(**override): bpy.ops.screen.area_close()
+# # NOT WORKING in blender 4.2.2 LTS! Fix this
+# # Close properties, dopesheet and outliner
+# # Default open areas: ['PROPERTIES', 'OUTLINER', 'DOPESHEET_EDITOR', 'VIEW_3D']
+# to_close = []
+# for area_type in ['PROPERTIES', 'OUTLINER', 'DOPESHEET_EDITOR']:
+#     to_close.append([area for area in bpy.context.screen.areas if area.type == area_type][-1])
+# override = bpy.context.copy()
+# for area in to_close:
+#     override['area'] = area
+#     with bpy.context.temp_override(**override): bpy.ops.screen.area_close()
 
 # Switch to rendered view upon launch
 main_area = [a for a in bpy.context.screen.areas if a.type == 'VIEW_3D'][0]
@@ -38,13 +38,6 @@ main_space.show_region_ui = True
 
 # Lock camera to view
 main_space.lock_camera = True
-
-# Default camera location and rotation upon launch
-#CAMERA_HOME_LOCATION = [7, -2.5, 4] # for cube
-CAMERA_HOME_LOCATION = [7, -3, 4] # for sphere
-CAMERA_HOME_ROTATION = [1.1, 0, 1.15]
-bpy.data.objects['Camera'].location = CAMERA_HOME_LOCATION.copy()
-bpy.data.objects['Camera'].rotation_euler = CAMERA_HOME_ROTATION.copy()
 
 # switch to camera view and maximize it to fit the window
 override = {'area':main_area, 'region':main_area.regions[-1]}

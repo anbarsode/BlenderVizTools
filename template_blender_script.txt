@@ -21,22 +21,33 @@ for i in range(len(images)-1):
 bpy.ops.object.select_all(action = 'DESELECT')
 bpy.ops.object.select_pattern(pattern = 'Layer *')
 bpy.ops.object.move_to_collection(collection_index = 0, is_new = True, new_collection_name = '__LABEL__')
+
+# Set view angle
+for area in bpy.context.screen.areas:
+    if area.type == 'VIEW_3D':
+        ctx = bpy.context.copy()
+        ctx['area'] = area
+        ctx['region'] = area.regions[-1]
+        with bpy.context.temp_override(**ctx): bpy.ops.view3d.view_selected(use_all_regions=False)
 bpy.ops.object.select_all(action = 'DESELECT')
+CAMERA_HOME_LOCATION = bpy.data.objects['Camera'].location.copy()
+CAMERA_HOME_ROTATION = bpy.data.objects['Camera'].rotation_euler.copy()
 
 # Create a template colormap
 create_template_colormap(cmap)
 
 # Set viewport and rendering settings
-CAMERA_HOME_LOCATION = [u * v for u,v in zip(CAMERA_HOME_LOCATION, __CAMERA_LOC_SCALE__)]
 reset_render_settings(**RENDER_SETTINGS)
 reset_viewport_settings(**VIEW_SETTINGS)
 
-def register():
+def register():    
     for cls in blender_classes: bpy.utils.register_class(cls)
     
     bpy.types.Scene.user_inputs = bpy.props.PointerProperty(type = MyProperties)
     bpy.context.scene.user_inputs.view_layers_N = __N_LAYERS__
     bpy.context.scene.user_inputs.view_layers_tot = len(images)-1
+    bpy.context.scene.user_inputs.length_scale = __LENGTH_SCALE__
+    bpy.ops.bvt.set_home_view()
 
 def unregister():
     del bpy.types.Scene.user_inputs
